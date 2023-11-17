@@ -1,34 +1,57 @@
+Certainly! Below is your updated README incorporating the Data Preprocessing part:
+
 # DevGPT Mining Challenge - MSR 2024
 
 ## Overview of the Mining Challenge
 
-DevGPT Mining Challenge - MSR 2024
-Introduction
+### Introduction
 The DevGPT Mining Challenge for MSR 2024 aims to explore and analyze the interactions between developers and ChatGPT, as captured in the DevGPT dataset. This dataset comprises developer prompts and ChatGPT's responses, including code snippets, all related to software development. The dataset is paired with software development artifacts like source code, commits, and discussions. With the DevGPT dataset, researchers can analyze the context and implications of developer interactions with ChatGPT.
 
-## Our Selected Challenge: Identifying Prompt Patterns
-We have chosen to address the following research question:
+## Our Selected Challenge: Topic Analysis of Developer Interactions with ChatGPT
 
-> **Can we identify patterns in the prompts developers use when interacting with ChatGPT, and do these patterns correlate with the success of issue resolution?**
+### Objective
+Our project focuses on understanding the different topics discussed between developers and ChatGPT. We aim to find out what kind of questions developers ask and how ChatGPT responds to them. To do this, we will use data from the DevGPT dataset. This dataset contains a collection of conversations between developers and ChatGPT, which will help us in analyzing and understanding the common themes and topics discussed.
 
-In this challenge, to put it simply, we aim to: 
+### Process
+In the first part of the project, we will prepare the data for analysis. This means we will organize and clean the data, removing any parts that are not needed for our study. Next, we will use methods to find out what topics are most common in the conversations. We will sort the questions and answers into different groups based on what they are about.
 
-1. Identify common or recurring patterns in the way developers phrase their questions or problems when consulting ChatGPT.
-2. Check if these patterns are linked with successful issue resolutions.
+Finally, we will study the results to better understand what developers are most interested in when they talk to ChatGPT. We will create visual reports to make it easy to see what the most common topics are.
 
-This insight can help improve the interaction between developers and ChatGPT, leading to more efficient problem-solving.
 
-### Dataset Maintenance Script:
+Certainly! Here’s the revised “Dataset Maintenance Script” section, rewritten for consistency with the “Data Preprocessing” section:
 
-To ensure we always work with the latest data, we have a script in place that regularly updates the DevGPT dataset. Here's a brief overview of the script:
+### Data Preprocessing
 
-- **What It Does**: The script checks if we already have a local copy of the DevGPT dataset. If it exists, the script updates it with the latest changes. If not, it clones the entire repository.
-- **Configuration**: We have set up the repository URL (`DEVGPT_REPO_URL`) and the local directory where the data should reside (`CLONE_DIR`).
-- **Running Commands**: A helper function (`run_command`) allows us to run shell commands, whether it's for cloning the repository or updating it.
-- **Clone or Update**: The main logic checks if the directory (`CLONE_DIR`) exists. If it does, the script pulls the latest changes. Otherwise, it clones the entire repository.
+Data preprocessing is a crucial part of our project, ensuring that the data is cleaned and formatted correctly to facilitate accurate and efficient analysis. Here is a walkthrough of our preprocessing steps as encapsulated in our script:
 
-To use the dataset maintenance script please see the file `update_database.py` in this repository.
+- **Code Removal**:
+   - Our script is currently designed to have a placeholder for code removal. This will be essential to ensure that non-textual code elements do not interfere with our text analysis.
 
----
+- **Language Filtering**:
+   - The script employs language detection to ensure that the analyzed text is in English. Texts detected as non-English are filtered out to maintain language consistency within the dataset.
 
-We look forward to sharing our findings and contributing to the understanding of developer interactions with ChatGPT. If you have any questions or wish to collaborate, feel free to reach out!
+- **Text Cleaning**:
+   - Non-English Characters: Removal of characters that fall outside the conventional English alphanumeric characters and punctuation.
+   - HTML Tags: Stripping the text of HTML tags to leave only the raw textual content.
+   - URL Removal: Extracting and removing URLs from the text.
+   - Placeholder and Extra Strings: The removal of specific placeholder strings and additional textual elements like “Used unknown plugin”, “Finished browsing”, etc.
+   - English Verification: Ensuring that the cleaned text is valid and non-empty English text.
+
+- **Data Extraction and Storage**:
+   - Reading Data: The script reads from a specific JSON file and iteratively processes the contents.
+   - Unique URL Checking: To avoid duplicate processing, the script ensures each URL is uniquely processed.
+   - Text Extraction: Prompts and responses are extracted, cleaned, and stored if they pass the cleaning criteria.
+   - JSON Output: Cleaned and preprocessed data are stored in a JSON file for subsequent use in analysis.
+
+The details and actual code of the Dataset Maintenance Script are housed within the `update_database.py` file in this repository. 
+
+### Data Preprocessing
+
+We have a designated data preprocessing script to ensure the dataset is cleaned and formatted correctly for analysis. The script performs various tasks such as:
+
+- **Text Cleaning**: Removing code segments, HTML tags, URLs, and specific unwanted strings from the text.
+- **Data Extraction**: Extracting necessary information, such as issue statuses and interactions with ChatGPT.
+- **Unique URL Processing**: Making sure each URL in the dataset is processed only once to maintain uniqueness.
+- **Output Preparation**: Saving the cleaned and pre-processed data into a new JSON file for further analysis.
+
+The details and the code for the data preprocessing can be found within the `data_preprocessing.py` file in this repository.
