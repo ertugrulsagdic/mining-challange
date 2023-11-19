@@ -6,34 +6,34 @@ import re
 import string
 from collections import Counter
 import os
-import openai
+# import openai
 
-openai.api_base = "http://localhost:1234/v1" # point to the local server
-openai.api_key = "" # no need for an API key
+# openai.api_base = "http://localhost:1234/v1" # point to the local server
+# openai.api_key = "" # no need for an API key
 
-plaintext_extraction_prompt = ("Remove all the code or programming language elements in this string without changing any other word. If you do not detect any code or programming language elements, do not change the string. Then, return only the processed string\\n\\n")
+# plaintext_extraction_prompt = ("Remove all the code or programming language elements in this string without changing any other word. If you do not detect any code or programming language elements, do not change the string. Then, return only the processed string\\n\\n")
 
-def remove_code(text):
-    # TODO: add code cleaning API
+# def remove_code(text):
+#     # TODO: add code cleaning API
     
-    prompt_with_text_extraction = plaintext_extraction_prompt + text
+#     prompt_with_text_extraction = plaintext_extraction_prompt + text
 
-    completion = openai.ChatCompletion.create(
-    model="local-model", # this field is currently unused
-    messages=[
-            {"role": "system", "content": "Remove Code"},
-            {"role": "user", "content": prompt_with_text_extraction}
-        ],
-    )
+#     completion = openai.ChatCompletion.create(
+#     model="local-model", # this field is currently unused
+#     messages=[
+#             {"role": "system", "content": "Remove Code"},
+#             {"role": "user", "content": prompt_with_text_extraction}
+#         ],
+#     )
     
-    print('############################TEXT#############################')
-    print(text)
-    new_text = completion.choices[0].message['content']
-    print('############################NEW TEXT#############################')
-    print(new_text)
-    print()
+#     print('############################TEXT#############################')
+#     print(text)
+#     new_text = completion.choices[0].message['content']
+#     print('############################NEW TEXT#############################')
+#     print(new_text)
+#     print()
 
-    return new_text
+#     return new_text
 
 def is_english(text, times=3):
     detections = []
@@ -52,8 +52,17 @@ def is_english(text, times=3):
 
 def clean_text(text):
 
-    # Removing non english characters
-    cleaned_text = re.sub(fr"[^a-zA-Z0-9 {string.punctuation}]+", " ", text)
+    # remove all between ''' ''' or """ """ or ``` ```
+    cleaned_text = re.sub(r"'''[\s\S]*?'''", "", text)
+    cleaned_text = re.sub(r'"""[\s\S]*?"""', "", cleaned_text)
+    cleaned_text = re.sub(r"```[\s\S]*?```", "", cleaned_text)
+
+    # remove the string that has # Working set in it
+    if re.search(r"# Working set", cleaned_text) is not None:
+        return ""
+
+    # # Removing non english characters
+    # cleaned_text = re.sub(fr"[^a-zA-Z0-9 {string.punctuation}]+", " ", text)
     
     # Removing HTML tags
     cleaned_text = re.sub(r"<[^>]+>", "", cleaned_text)
@@ -86,7 +95,25 @@ def clean_text(text):
     if cleaned_text == " " or cleaned_text == "":
         return ""
 
-    cleaned_text = remove_code(cleaned_text)
+    # cleaned_text = remove_code(cleaned_text)
+
+    
+    # check if fr"[^a-zA-Z0-9 {string.punctuation}]+" exists in text
+    if re.search(fr"[^a-zA-Z0-9\s{string.punctuation}\\·–—…“”’∗]+", text) is not None:
+        # print('#########################################################')
+        # # print the captured group
+        # print(string.punctuation)
+        # print(re.search(fr"[^a-zA-Z0-9\s{string.punctuation}\\·—–…“”’∗]+", text))
+        # print('#########################################################')
+        # print(text)
+        # # wait for user input
+        # input()
+        # print('#########################################################')
+        # print('#########################################################')
+        # print('#########################################################')
+        # print('#########################################################')
+        return ""
+
     
     return cleaned_text
 
@@ -101,6 +128,7 @@ files = os.listdir(path)
 
 
 total = 0
+all_total = 0
 
 for file in files:
 
@@ -134,6 +162,8 @@ for file in files:
                 if prompt_element is None:
                     continue
 
+                all_total += 1
+
                 prompt_text = clean_text(prompt_element.get_text())
 
                 if prompt_text != "" and prompt_text != " ":
@@ -146,5 +176,5 @@ for file in files:
 print("Total: ", total)
 
 # write pre_processed_data to file
-with open("./pre_processed_data_first_prompts_code_removed.json", "w") as outfile:
+with open("./pre_processed_data_non_english_removed.json", "w") as outfile:
     json.dump(pre_processed_data, outfile, indent=4)
