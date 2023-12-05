@@ -1,0 +1,23 @@
+I have a topic that contains the following most representative documents:
+<sentence0>Write a DeckGL layer for pie charts</sentence0>
+<sentence1>Enumerate a hierarchy of actions that one takes when operating GUI desktop applications for typical day-to-day tasks. Consider different levels of abstractions. Examples include: clicking a button, opening a window, operating payroll software, generating invoices, renting an apartment</sentence1>
+<sentence2>How do you use conan and the conancenter to build a complex C++ program like 3D Slicer?</sentence2>
+<sentence3>Enumerate a hierarchy of actions that one takes when operating GUI desktop applications for typical day-to-day tasks. Consider different levels of abstractions. Examples include: clicking a button, opening a window, operating payroll software, generating invoices, renting an apartment</sentence3>
+<sentence4>Please provide an exhaustive list of desktop user interface components.</sentence4>
+<sentence5>what classes would you use (python) to implement a simple blackjack game?</sentence5>
+<sentence6>Are you familiar with the game flappy Bird?</sentence6>
+<sentence7>are you familiar with typedb?</sentence7>
+<sentence8>What are the 10 most used keyboard layouts in europe and north america? </sentence8>
+<sentence9>what are a list of python and tkinter tools i can use when making a gui that can be used to display and play Tic Tac Toe</sentence9>
+
+
+The topic is described by the following keywords: gui, desktop, tkinter, interface, layouts, applications, software, abstractions, tools, components,
+
+Based on the information about the topic above, 
+1) Analyze the keywords and come up with a general label. Explain why? 
+2) cluster the most representative sentences to come up with sub-labels. Explain why? 
+
+DO NOT FORGET TO include the first 10 character of that sentences that you use to come up with that sub-category, so that I can read the sentences you have clustered and see if you come up with correct label for that. 
+Take your time and think, then come up with the best, precise, and meaningful label and sub-labels.
+
+Now Take a deep breath and start

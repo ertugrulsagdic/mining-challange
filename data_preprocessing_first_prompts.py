@@ -6,34 +6,6 @@ import re
 import string
 from collections import Counter
 import os
-# import openai
-
-# openai.api_base = "http://localhost:1234/v1" # point to the local server
-# openai.api_key = "" # no need for an API key
-
-# plaintext_extraction_prompt = ("Remove all the code or programming language elements in this string without changing any other word. If you do not detect any code or programming language elements, do not change the string. Then, return only the processed string\\n\\n")
-
-# def remove_code(text):
-#     # TODO: add code cleaning API
-    
-#     prompt_with_text_extraction = plaintext_extraction_prompt + text
-
-#     completion = openai.ChatCompletion.create(
-#     model="local-model", # this field is currently unused
-#     messages=[
-#             {"role": "system", "content": "Remove Code"},
-#             {"role": "user", "content": prompt_with_text_extraction}
-#         ],
-#     )
-    
-#     print('############################TEXT#############################')
-#     print(text)
-#     new_text = completion.choices[0].message['content']
-#     print('############################NEW TEXT#############################')
-#     print(new_text)
-#     print()
-
-#     return new_text
 
 def is_english(text, times=3):
     detections = []
@@ -100,20 +72,9 @@ def clean_text(text):
     
     # check if fr"[^a-zA-Z0-9 {string.punctuation}]+" exists in text
     if re.search(fr"[^a-zA-Z0-9\s{string.punctuation}\\·–—…“”’∗]+", text) is not None:
-        # print('#########################################################')
-        # # print the captured group
-        # print(string.punctuation)
-        # print(re.search(fr"[^a-zA-Z0-9\s{string.punctuation}\\·—–…“”’∗]+", text))
-        # print('#########################################################')
-        # print(text)
-        # # wait for user input
-        # input()
-        # print('#########################################################')
-        # print('#########################################################')
-        # print('#########################################################')
-        # print('#########################################################')
         return ""
 
+    cleaned_text = cleaned_text.replace("\n", " ")
     
     return cleaned_text
 
@@ -176,5 +137,5 @@ for file in files:
 print("Total: ", total)
 
 # write pre_processed_data to file
-with open("./pre_processed_data_non_english_removed.json", "w") as outfile:
+with open("./pre_processed_data.json", "w") as outfile:
     json.dump(pre_processed_data, outfile, indent=4)
